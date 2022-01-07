@@ -1,0 +1,978 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XLAUDIO Library &mdash; Real Time DSP Book  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hardware" href="hardware.html" />
+    <link rel="prev" title="Software" href="software.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Real Time DSP Book
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="software.html">Software</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">XLAUDIO Library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-init">xlaudio_init()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-init-poll">xlaudio_init_poll()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-init-intr">xlaudio_init_intr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-init-dma">xlaudio_init_dma()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-run">xlaudio_run()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-measureperfsample">xlaudio_measurePerfSample()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-measureperfbuffer">xlaudio_measurePerfBuffer()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-errorledoff">xlaudio_errorledoff()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-errorledon">xlaudio_errorledon()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-colorledred">xlaudio_colorledred()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-colorledblue">xlaudio_colorledblue()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-colorledgreen">xlaudio_colorledgreen()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-colorledoff">xlaudio_colorledoff()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-debugpinhigh">xlaudio_debugpinhigh()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-debugpinlow">xlaudio_debugpinlow()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-pushbuttonleftup">xlaudio_pushButtonLeftUp()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-pushbuttonleftdown">xlaudio_pushButtonLeftDown()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-pushbuttonrightup">xlaudio_pushButtonRightUp()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-pushbuttonrightdown">xlaudio_pushButtonRightDown()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-adc14-to-q15">xlaudio_adc14_to_q15()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-adc14-to-q15-vec">xlaudio_adc14_to_q15_vec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-adc14-to-q31">xlaudio_adc14_to_q31()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-adc14-to-q31-vec">xlaudio_adc14_to_q31_vec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-adc14-to-f32">xlaudio_adc14_to_f32()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-adc14-to-f32-vec">xlaudio_adc14_to_f32_vec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-q15-to-dac14">xlaudio_q15_to_dac14()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-q15-to-dac14-vec">xlaudio_q15_to_dac14_vec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-q31-to-dac14">xlaudio_q31_to_dac14()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-q31-to-dac14-vec">xlaudio_q31_to_dac14_vec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-f32-to-dac14">xlaudio_f32_to_dac14()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-f32-to-dac14-vec">xlaudio_f32_to_dac14_vec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xlaudio-cycles">xlaudio_cycles()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-1-loopback">Example 1: Loopback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-2-first-order-lowpass">Example 2: First-Order Lowpass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-3-voice-recorder">Example 3: Voice Recorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labs.html">Labs</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Real Time DSP Book</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="software.html">Software</a> &raquo;</li>
+        
+      <li>XLAUDIO Library</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xlaudio_lib.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xlaudio-library">
+<span id="xlaudio-lib"></span><h1>XLAUDIO Library<a class="headerlink" href="#xlaudio-library" title="Permalink to this headline">¶</a></h1>
+<p>XLAUDIO_LIB is a support library that offers support for flexible input/output in a real-time DSP application. The library was specifically designed for this course and can be <a class="reference external" href="https://github.com/wpi-ece4703-b21/xlaudio_lib">consulted on github</a>.</p>
+<p>The following is a list of the public functions defined in this library.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 61%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><strong>System Initialization Functions</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-init"><span class="std std-ref">xlaudio_init()</span></a></p></td>
+<td><p>System Initialization when no A/D, D/A is needed</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-init-poll"><span class="std std-ref">xlaudio_init_poll()</span></a></p></td>
+<td><p>System Initialization for polling A/D, D/A</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-init-intr"><span class="std std-ref">xlaudio_init_intr()</span></a></p></td>
+<td><p>System Initialization for timer-driven A/D, D/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-init-dma"><span class="std std-ref">xlaudio_init_dma()</span></a></p></td>
+<td><p>System Initialization for block-based A/D, D/A</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p><strong>System Evaluation Functions</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-run"><span class="std std-ref">xlaudio_run()</span></a></p></td>
+<td><p>Continuous System Evaluation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-measureperfsample"><span class="std std-ref">xlaudio_measurePerfSample()</span></a></p></td>
+<td><p>One-time Performance Evaluation (poll/interrupt mode)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-measureperfbuffer"><span class="std std-ref">xlaudio_measurePerfBuffer()</span></a></p></td>
+<td><p>One-time Performance Evaluation (dma mode)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-measureperfbuffer"><span class="std std-ref">xlaudio_measurePerfBuffer()</span></a></p></td>
+<td><p>One-time Performance Evaluation (dma mode)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Buttons and LEDs</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-errorledoff"><span class="std std-ref">xlaudio_errorledoff()</span></a></p></td>
+<td><p>Turns off left red led on Launchpad</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-errorledon"><span class="std std-ref">xlaudio_errorledon()</span></a></p></td>
+<td><p>Turns on left red led on Launchpad</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-colorledoff"><span class="std std-ref">xlaudio_colorledoff()</span></a></p></td>
+<td><p>Turns off right led on Launchpad</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-colorledgreen"><span class="std std-ref">xlaudio_colorledgreen()</span></a></p></td>
+<td><p>Sets right led on Launchpad to green color</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-colorledblue"><span class="std std-ref">xlaudio_colorledblue()</span></a></p></td>
+<td><p>Sets right led on Launchpad to blue color</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-pushbuttonleftup"><span class="std std-ref">xlaudio_pushButtonLeftUp()</span></a></p></td>
+<td><p>Reads Launchpad Left Button Status</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-pushbuttonleftdown"><span class="std std-ref">xlaudio_pushButtonLeftDown()</span></a></p></td>
+<td><p>Reads Launchpad Left Button Status</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-pushbuttonrightup"><span class="std std-ref">xlaudio_pushButtonRightUp()</span></a></p></td>
+<td><p>Reads Launchpad Right Button Status</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-pushbuttonrightdown"><span class="std std-ref">xlaudio_pushButtonRightDown()</span></a></p></td>
+<td><p>Reads Launchpad Right Button Status</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Header Pin Control</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-debugpinhigh"><span class="std std-ref">xlaudio_debugpinhigh()</span></a></p></td>
+<td><p>Sets Launchpad Debug Pin to High State</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-debugpinlow"><span class="std std-ref">xlaudio_debugpinlow()</span></a></p></td>
+<td><p>Sets Launchpad Debug Pin to Low State</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p><strong>Data Type Conversion</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-adc14-to-q15"><span class="std std-ref">xlaudio_adc14_to_q15()</span></a></p></td>
+<td><p>ADC14 samples to Q15 fixed point sample</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-adc14-to-q15-vec"><span class="std std-ref">xlaudio_adc14_to_q15_vec()</span></a></p></td>
+<td><p>ADC14 samples to Q15 fixed point buffer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-adc14-to-q31"><span class="std std-ref">xlaudio_adc14_to_q31()</span></a></p></td>
+<td><p>ADC14 samples to Q31 fixed point sample</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-adc14-to-q31-vec"><span class="std std-ref">xlaudio_adc14_to_q31_vec()</span></a></p></td>
+<td><p>ADC14 samples to Q31 fixed point buffer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-adc14-to-f32"><span class="std std-ref">xlaudio_adc14_to_f32()</span></a></p></td>
+<td><p>ADC14 samples to single-precision floating point sample</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-adc14-to-f32-vec"><span class="std std-ref">xlaudio_adc14_to_f32_vec()</span></a></p></td>
+<td><p>ADC14 samples to single-precision floating point buffer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-q15-to-dac14"><span class="std std-ref">xlaudio_q15_to_dac14()</span></a></p></td>
+<td><p>Q15 fixed point to DAC14 samples sample</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-q15-to-dac14-vec"><span class="std std-ref">xlaudio_q15_to_dac14_vec()</span></a></p></td>
+<td><p>Q15 fixed point to DAC14 samples buffer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-q31-to-dac14"><span class="std std-ref">xlaudio_q31_to_dac14()</span></a></p></td>
+<td><p>Q31 fixed point to DAC14 samples sample</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-q31-to-dac14-vec"><span class="std std-ref">xlaudio_q31_to_dac14_vec()</span></a></p></td>
+<td><p>Q31 fixed point to DAC14 samples buffer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#xlaudio-f32-to-dac14"><span class="std std-ref">xlaudio_f32_to_dac14()</span></a></p></td>
+<td><p>Single-precision floating point to DAC14 samples</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-f32-to-dac14-vec"><span class="std std-ref">xlaudio_f32_to_dac14_vec()</span></a></p></td>
+<td><p>Single-precision floating point to DAC14 samples buffer</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Real Time Functions</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#xlaudio-cycles"><span class="std std-ref">xlaudio_cycles()</span></a></p></td>
+<td><p>Delays execution by a given number of CPU cycles</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="section" id="xlaudio-init">
+<span id="id1"></span><h2>xlaudio_init()<a class="headerlink" href="#xlaudio-init" title="Permalink to this headline">¶</a></h2>
+<p>This function configures the processor clock of the ARM Cortex M4 to 48MHz. The function can be used when neither D/A nor A/D conversions are required.</p>
+<p>The following subsystems are configured by this call.</p>
+<ul class="simple">
+<li><p>Clock subsystem</p></li>
+<li><p>Error LED (Used by <code class="docutils literal notranslate"><span class="pre">xlaudio_errorled..()</span></code> calls)</p></li>
+<li><p>Color LED (Used by <code class="docutils literal notranslate"><span class="pre">xlaudio_colorled..()</span></code> calls)</p></li>
+<li><p>Push Buttons (Used by <code class="docutils literal notranslate"><span class="pre">xlaudio_pushButton..()</span></code> calls)</p></li>
+<li><p>Dutycycle IO pin 5.7 (Used by DMA subsystem)</p></li>
+<li><p>Debug IO pin 3.5 (Used by <code class="docutils literal notranslate"><span class="pre">xlaudio_debugpin..()</span></code>)</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^xlaudio_init.h^</span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_init</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-init-poll">
+<span id="id2"></span><h2>xlaudio_init_poll()<a class="headerlink" href="#xlaudio-init-poll" title="Permalink to this headline">¶</a></h2>
+<p>This function configures the processor clock of the ARM Cortex M4 to 48MHz, turns on the microphone, and initializes the hardware in polling mode. In polling mode, the following steps are repeated as fast as the hardware allows: (1) An A/D conversion from a user-defined sources is completed, (2) a user-defined call-back function is executed with the converted sample as argument, (3) the value returned by the user-defined call-back function is forwarded to the D/A. The speed of A/D conversions is limited due to the speed of the successive approximation ADC in the MSP432. The speed of the D/A conversions is limited by the SPI connection between the MSP432 and the off-chip DAC8331.</p>
+<p>The following subsystems are configured by this call.</p>
+<ul>
+<li><p>All subsystems listed under <cite>xlaudio_init()</cite></p></li>
+<li><p>The DAC8311 chip on the BOOSTXL-AUDIO board</p></li>
+<li><p>The BOOSTXL-AUDIO amplifier on the BOOSTXL-AUDIO board</p></li>
+<li><p>One of the following depending on the value of the <code class="docutils literal notranslate"><span class="pre">_audioin</span></code> parameter</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The BOOSTXL-AUDIO microphone preamp on the BOOSTXL-AUDIO board</p></li>
+<li><p>Input pin 1.2 on the BOOSTXL header</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>The ADC14 inside of the MSP432</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^xlaudio_init.h^</span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_init_poll</span><span class="p">(</span><span class="n">XLAUDIO_IN_enum_t</span>  <span class="n">_audioin</span><span class="p">,</span>
+                       <span class="n">xlaudio_sample_process_t</span> <span class="n">_cb</span>
+                      <span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_in_enum_t</span>&#160; <span class="pre">_audioin</span></code> indicates the source used by the ADC converter, and is one of the following selections.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">XLAUDIO_MIC_IN</span></code> the source signal is taken from the BOOSTXL board microphone</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XLAUDIO_J1_2_IN</span></code> the source signal is taken from pin 2 of header J1</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_sample_process_t</span> <span class="pre">_cb</span></code> is a pointer to the callback function called after ADC conversion.
+The callback function reads a 16-bit unsigned integer and returns a 16-bit unsigned integer, i.e.
+<code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">uint16_t</span> <span class="pre">(*xlaudio_sample_process_t)(uint16_t);</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="xlaudio-init-intr">
+<span id="id3"></span><h2>xlaudio_init_intr()<a class="headerlink" href="#xlaudio-init-intr" title="Permalink to this headline">¶</a></h2>
+<p>This function configures the processor clock of the ARM Cortex M4 to 48MHz, turns on the microphone, and initializes the hardware in interrupt mode. In interrupt mode, a hardware timer is set to expire at a user-defined sample rate. When the hardware timer expires, an A/D conversion from a user-defined source is started. When the A/D conversion completes, a user-defined call-back function is called as part of the A/D interrupt service routine. The value returned from the user-defined call-back function is forwarded to the D/A. The audio processing thus proceeds at the user-defined sample rate. However, for correct operation, the processing time per sample must be smaller than the sample period. The processing time per sample is the sum of the execution time of the user-defined call-back function plus the time to make a D/A conversion. When the processing time per sample exceeds this sum, a timer interrupt will be lost and the sampling process will no longer reach the selected user-defined sample rate.</p>
+<p>The following subsystems are configured by this call.</p>
+<ul class="simple">
+<li><p>All subsystems listed under <cite>xlaudio_init_poll()</cite></p></li>
+<li><p>A Timer-driven periodic ISR to drive DAC conversions at the selected sample rate</p></li>
+<li><p>An ADC-driven ISR to capture the completed conversions</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^audioxl.h^</span>
+
+<span class="kt">void</span> <span class="nf">msp432_boostxl_init_intr</span><span class="p">(</span><span class="n">FS_enum_t</span>          <span class="n">_fs</span><span class="p">,</span>
+                              <span class="n">BOOSTXL_IN_enum_t</span>  <span class="n">_audioin</span><span class="p">,</span>
+                              <span class="n">msp432_sample_process_t</span> <span class="n">_cb</span>
+                              <span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_enum_t</span> <span class="pre">_fs</span></code> selects the sample rate for the A/D and D/A conversion process.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_8000_HZ</span></code> selects a sample rate of 8,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_11025_HZ</span></code> selects a sample rate of 11,025 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_16000_HZ</span></code> selects a sample rate of 16,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_22050_HZ</span></code> selects a sample rate of 22,050 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_24000_HZ</span></code> selects a sample rate of 24,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_32000_HZ</span></code> selects a sample rate of 32,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_44100_HZ</span></code> selects a sample rate of 44,100 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_48000_HZ</span></code> selects a sample rate of 48,000 Hz</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_in_enum_t</span>&#160; <span class="pre">_audioin</span></code> indicates the source used by the ADC converter, and is one of the following selections.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">XLAUDIO_MIC_IN</span></code> the source signal is taken from the BOOSTXL board microphone</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XLAUDIO_J1_2_IN</span></code> the source signal is taken from pin 2 of header J1</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_sample_process_t</span> <span class="pre">_cb</span></code> is a pointer to the callback function called after ADC conversion.
+The callback function reads a 16-bit unsigned integer and returns a 16-bit unsigned integer, i.e.
+<code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">uint16_t</span> <span class="pre">(*xlaudio_sample_process_t)(uint16_t);</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="xlaudio-init-dma">
+<span id="id4"></span><h2>xlaudio_init_dma()<a class="headerlink" href="#xlaudio-init-dma" title="Permalink to this headline">¶</a></h2>
+<p>This function configures the processor clock of the ARM Cortex M4 to 48MHz, turns on the microphone, and initializes the hardware in DMA mode. In DMA mode, a hardware timer is set to expire at a user-defined sample rate. When the hardware timer expires, an A/D conversion from a user-defined source is started. When the A/D conversion completes, the sample is copied by a Direct Memory Access (DMA) module into a buffer. When a user-defined number of samples are gathered in the buffer, a user-defined call-back is called to process a block of samples. The user-defined call-back function
+returns a block of samples from the same size. In dma mode, a hardware timer interrupt is then used to copy these output samples to the D/A module, one sample at a time. The DMA mode uses ping-pong
+buffers to keep the sampling process and the data processing apart. There are two pairs of
+ping-pong buffers: one pair is associated with the A/D conversion, and a second pair is associated with the D/A conversion.</p>
+<p>The following subsystems are configured by this call.</p>
+<ul class="simple">
+<li><p>All subsystems listed under <cite>xlaudio_init_poll()</cite></p></li>
+<li><p>A Timer-driven ISR to start ADC conversions at the selected sample rate</p></li>
+<li><p>A DMA-driven ISR to switch between ping-pong buffer channels</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_dma</span> <span class="p">(</span><span class="n">fs_enum_t</span>                <span class="n">_fs</span><span class="p">,</span>
+                  <span class="n">xlaudio_in_enum_t</span>        <span class="n">_audioin</span><span class="p">,</span>
+                  <span class="n">buflen_enum_t</span>            <span class="n">_pplen</span><span class="p">,</span>
+                  <span class="n">xlaudio_buffer_process_t</span> <span class="n">_cb</span>
+                  <span class="p">);</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fs_enum_t</span> <span class="pre">_fs</span></code> selects the sample rate for the A/D and D/A conversion process.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_8000_HZ</span></code> selects a sample rate of 8,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_11025_HZ</span></code> selects a sample rate of 11,025 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_16000_HZ</span></code> selects a sample rate of 16,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_22050_HZ</span></code> selects a sample rate of 22,050 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_24000_HZ</span></code> selects a sample rate of 24,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_32000_HZ</span></code> selects a sample rate of 32,000 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_44100_HZ</span></code> selects a sample rate of 44,100 Hz</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FS_48000_HZ</span></code> selects a sample rate of 48,000 Hz</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">boostxl_in_enum_t</span> <span class="pre">_audioin</span></code> indicates the source used by the ADC converter, and is one of the following selections.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BOOSTXL_MIC_IN</span></code> the source signal is taken from the BOOSTXL board microphone</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BOOSTXL_J1_2_IN</span></code> the source signal is taken from pin 2 of header J1</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">buflen_enum_t</span> <span class="pre">_pplen</span></code> selects the size of the DMA ping-pong buffer.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BUFLEN_8</span></code> selects a buffer size of 8 samples (for each ping buffer and each pong buffer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUFLEN_16</span></code> selects a buffer size of 16 samples (for each ping buffer and each pong buffer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUFLEN_32</span></code> selects a buffer size of 32 samples (for each ping buffer and each pong buffer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUFLEN_64</span></code> selects a buffer size of 64 samples (for each ping buffer and each pong buffer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUFLEN_128</span></code> selects a buffer size of 128 samples (for each ping buffer and each pong buffer)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_buffer_process_t</span> <span class="pre">_cb</span></code> is a pointer to the callback function called after the ping-pong buffers have filled up. The calllback function has type <code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">void</span> <span class="pre">(*xlaudio_buffer_process_t)(uint16_t</span> <span class="pre">*,</span> <span class="pre">uint16_t</span> <span class="pre">*)</span></code> and takes two arguments. The first argument is a pointer to the input buffer of <code class="docutils literal notranslate"><span class="pre">_pplen</span></code> elements of type <code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>. The second argument is a pointer to the output buffer of <code class="docutils literal notranslate"><span class="pre">_pplen</span></code> elements of type <code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>. The callback function returns void.</p></li>
+</ul>
+</div>
+<div class="section" id="xlaudio-run">
+<span id="id5"></span><h2>xlaudio_run()<a class="headerlink" href="#xlaudio-run" title="Permalink to this headline">¶</a></h2>
+<p>This function starts the conversion process. Before calling this function the user must call one of the following initialization functions.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_init_poll()</span></code> for polling mode conversion</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_init_intr()</span></code> for interrupt mode conversion</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_init_dma()</span></code> for dma mode conversion</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_run</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-measureperfsample">
+<span id="id6"></span><h2>xlaudio_measurePerfSample()<a class="headerlink" href="#xlaudio-measureperfsample" title="Permalink to this headline">¶</a></h2>
+<p>This function measures the median execution time, counted in clock cycles, of a sample-based callback function such as used in polled mode and in interrupt mode. The measurement process proceeds as follows. The callback function is called 11 times, using a dummy (0) input argument. The return value of the callback function is ignored, and it is not forwarded to the D/A. Each of the 11 executions are measured using a hardware timer. The resulting set of cycle counts is sorted and the median (middle) element is returned. The measurement function adjusts the result and subtracts measurement overhead.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">uint32_t</span> <span class="nf">measurePerfSample</span><span class="p">(</span><span class="n">xlaudio_sample_process_t</span> <span class="n">_cb</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_sample_process_t</span> <span class="pre">_cb</span></code> is a pointer to the callback function called after ADC conversion. The callback function reads a 16-bit unsigned integer and returns a 16-bit unsigned integer, i.e. <code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">uint16_t</span> <span class="pre">(*xlaudio_sample_process_t)(uint16_t);</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="xlaudio-measureperfbuffer">
+<span id="id7"></span><h2>xlaudio_measurePerfBuffer()<a class="headerlink" href="#xlaudio-measureperfbuffer" title="Permalink to this headline">¶</a></h2>
+<p>This function measures the median execution time, counted in clock cycles, of a buffer-based callback function such as used in dma mode. The measurement process proceeds as follows. The callback function is called 11 times, using a dummy input buffer of zeroes. The return buffer is ignored, and it is not forwarded to the D/A. Each of the 11 executions are measured using a hardware timer. The resulting set of cycle counts is sorted and the median (middle) element is returned. The measurement function adjusts the result and subtracts measurement overhead.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">uint32_t</span> <span class="nf">measurePerfBuffer</span><span class="p">(</span><span class="n">xlaudio_buffer_process_t</span> <span class="n">_cb</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xlaudio_buffer_process_t</span> <span class="pre">_cb</span></code> is a pointer to the callback function called after the ping-pong buffers have filled up. The calllback function has type <code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">void</span> <span class="pre">(*xlaudio_buffer_process_t)(uint16_t</span> <span class="pre">*,</span> <span class="pre">uint16_t</span> <span class="pre">*)</span></code> and takes two arguments. The first argument is a pointer to the input buffer of <code class="docutils literal notranslate"><span class="pre">_pplen</span></code> elements of type <code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>. The second argument is a pointer to the output buffer of <code class="docutils literal notranslate"><span class="pre">_pplen</span></code> elements of type <code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>. The callback function returns void.</p></li>
+</ul>
+</div>
+<div class="section" id="xlaudio-errorledoff">
+<span id="id8"></span><h2>xlaudio_errorledoff()<a class="headerlink" href="#xlaudio-errorledoff" title="Permalink to this headline">¶</a></h2>
+<p>This function turns off the left LED of the MSPEXP432P401R board.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_errorledoff</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-errorledon">
+<span id="id9"></span><h2>xlaudio_errorledon()<a class="headerlink" href="#xlaudio-errorledon" title="Permalink to this headline">¶</a></h2>
+<p>This function turns on left LED of the MSPEXP432P401R board.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_errorledon</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-colorledred">
+<span id="id10"></span><h2>xlaudio_colorledred()<a class="headerlink" href="#xlaudio-colorledred" title="Permalink to this headline">¶</a></h2>
+<p>This function sets the right LED of the MSPEXP432P401R board to a red color.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_colorledred</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-colorledblue">
+<span id="id11"></span><h2>xlaudio_colorledblue()<a class="headerlink" href="#xlaudio-colorledblue" title="Permalink to this headline">¶</a></h2>
+<p>This function sets the right LED of the MSPEXP432P401R board to a blue color.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_colorledblue</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-colorledgreen">
+<span id="id12"></span><h2>xlaudio_colorledgreen()<a class="headerlink" href="#xlaudio-colorledgreen" title="Permalink to this headline">¶</a></h2>
+<p>This function sets the right LED of the MSPEXP432P401R board to a green color.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_colorledgreen</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-colorledoff">
+<span id="id13"></span><h2>xlaudio_colorledoff()<a class="headerlink" href="#xlaudio-colorledoff" title="Permalink to this headline">¶</a></h2>
+<p>This function turns off the right LED of the MSPEXP432P401R board.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_colorledoff</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-debugpinhigh">
+<span id="id14"></span><h2>xlaudio_debugpinhigh()<a class="headerlink" href="#xlaudio-debugpinhigh" title="Permalink to this headline">¶</a></h2>
+<p>This function sets the debug IO pin (3.5) on the BOOSTXL header high.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_debugpinhigh</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-debugpinlow">
+<span id="id15"></span><h2>xlaudio_debugpinlow()<a class="headerlink" href="#xlaudio-debugpinlow" title="Permalink to this headline">¶</a></h2>
+<p>This function sets the debug IO pin (3.5) on the BOOSTXL header low.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_debugpinlow</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-pushbuttonleftup">
+<span id="id16"></span><h2>xlaudio_pushButtonLeftUp()<a class="headerlink" href="#xlaudio-pushbuttonleftup" title="Permalink to this headline">¶</a></h2>
+<p>This function returns true when the left button on the MSPEXP432P401R board is released.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">xlaudio_pushButtonLeftUp</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-pushbuttonleftdown">
+<span id="id17"></span><h2>xlaudio_pushButtonLeftDown()<a class="headerlink" href="#xlaudio-pushbuttonleftdown" title="Permalink to this headline">¶</a></h2>
+<p>This function returns true when the left button on the MSPEXP432P401R board is depressed.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">xlaudio_pushButtonLeftDown</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-pushbuttonrightup">
+<span id="id18"></span><h2>xlaudio_pushButtonRightUp()<a class="headerlink" href="#xlaudio-pushbuttonrightup" title="Permalink to this headline">¶</a></h2>
+<p>This function returns true when the right button on the MSPEXP432P401R board is released.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">xlaudio_pushButtonRightUp</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-pushbuttonrightdown">
+<span id="id19"></span><h2>xlaudio_pushButtonRightDown()<a class="headerlink" href="#xlaudio-pushbuttonrightdown" title="Permalink to this headline">¶</a></h2>
+<p>This function returns true when the right button on the MSPEXP432P401R board is depressed.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">xlaudio_pushButtonRightDown</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-adc14-to-q15">
+<span id="id20"></span><h2>xlaudio_adc14_to_q15()<a class="headerlink" href="#xlaudio-adc14-to-q15" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a 14-bit ADC value to a fixed-point fix&lt;16,15&gt; Q15 value.
+The encoded range spans [-0.25,0.25] corresponding to the analog range [0v, 3v3].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="n">q15_t</span>     <span class="nf">xlaudio_adc14_to_q15</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-adc14-to-q15-vec">
+<span id="id21"></span><h2>xlaudio_adc14_to_q15_vec()<a class="headerlink" href="#xlaudio-adc14-to-q15-vec" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a 14-bit ADC buffer to a fixed-point fix&lt;16,15&gt; Q15 buffer.
+The encoded range spans [-0.25,0.25] corresponding to the analog range [0v, 3v3].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_adc14_to_q15_vec</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">q15_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">sz</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-adc14-to-q31">
+<span id="id22"></span><h2>xlaudio_adc14_to_q31()<a class="headerlink" href="#xlaudio-adc14-to-q31" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a 14-bit ADC value to a fixed-point fix&lt;32,31&gt; Q31 value.
+The encoded range spans [-0.25,0.25] corresponding to the analog range [0v, 3v3].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="n">q31_t</span>     <span class="nf">xlaudio_adc14_to_q31</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-adc14-to-q31-vec">
+<span id="id23"></span><h2>xlaudio_adc14_to_q31_vec()<a class="headerlink" href="#xlaudio-adc14-to-q31-vec" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a 14-bit ADC buffer to a fixed-point fix&lt;32,31&gt; Q31 buffer.
+The encoded range spans [-0.25,0.25] corresponding to the analog range [0v, 3v3].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_adc14_to_q31_vec</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">q31_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">sz</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-adc14-to-f32">
+<span id="id24"></span><h2>xlaudio_adc14_to_f32()<a class="headerlink" href="#xlaudio-adc14-to-f32" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a 14-bit ADC value to a single-precision floating point value.
+The encoded range spans [-0.25,0.25] corresponding to the analog range [0v, 3v3].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="n">float32_t</span> <span class="nf">xlaudio_adc14_to_f32</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-adc14-to-f32-vec">
+<span id="id25"></span><h2>xlaudio_adc14_to_f32_vec()<a class="headerlink" href="#xlaudio-adc14-to-f32-vec" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a 14-bit ADC buffer to a single-precision floating point buffer.
+The encoded range spans [-0.25,0.25] corresponding to the analog range [0v, 3v3].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_adc14_to_f32_vec</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">float32_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">sz</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-q15-to-dac14">
+<span id="id26"></span><h2>xlaudio_q15_to_dac14()<a class="headerlink" href="#xlaudio-q15-to-dac14" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a fixed-point fix&lt;16,15&gt; Q15 value to a 14-bit DAC value.
+The analog range spans [0v, 3v3] corresponding to range [-0.25,0.25].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="kt">uint16_t</span>  <span class="nf">xlaudio_q15_to_dac14</span><span class="p">(</span><span class="n">q15_t</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-q15-to-dac14-vec">
+<span id="id27"></span><h2>xlaudio_q15_to_dac14_vec()<a class="headerlink" href="#xlaudio-q15-to-dac14-vec" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a fixed-point fix&lt;16,15&gt; Q15 value to a 14-bit DAC value.
+The analog range spans [0v, 3v3] corresponding to range [-0.25,0.25].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_q15_to_dac14_vec</span><span class="p">(</span><span class="k">const</span> <span class="n">q15_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">sz</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-q31-to-dac14">
+<span id="id28"></span><h2>xlaudio_q31_to_dac14()<a class="headerlink" href="#xlaudio-q31-to-dac14" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a fixed-point fix&lt;32,31&gt; Q31 value to a 14-bit DAC value.
+The analog range spans [0v, 3v3] corresponding to range [-0.25,0.25].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^xlaudio_arm_dsp.h^</span>
+
+<span class="kt">uint16_t</span>  <span class="nf">xlaudio_q31_to_dac14</span><span class="p">(</span><span class="n">q31_t</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-q31-to-dac14-vec">
+<span id="id29"></span><h2>xlaudio_q31_to_dac14_vec()<a class="headerlink" href="#xlaudio-q31-to-dac14-vec" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a fixed-point fix&lt;32,31&gt; Q31 buffer to a 14-bit DAC buffer.
+The analog range spans [0v, 3v3] corresponding to range [-0.25,0.25].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^xlaudio_arm_dsp.h^</span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_q31_to_dac14_vec</span><span class="p">(</span><span class="k">const</span> <span class="n">q31_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">sz</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-f32-to-dac14">
+<span id="id30"></span><h2>xlaudio_f32_to_dac14()<a class="headerlink" href="#xlaudio-f32-to-dac14" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a single-precision floating point value to a 14-bit DAC value.
+The analog range spans [0v, 3v3] corresponding to range [-0.25,0.25].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^xlaudio_arm_dsp.h^</span>
+
+<span class="kt">uint16_t</span>  <span class="nf">xlaudio_f32_to_dac14</span><span class="p">(</span><span class="n">float32_t</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-f32-to-dac14-vec">
+<span id="id31"></span><h2>xlaudio_f32_to_dac14_vec()<a class="headerlink" href="#xlaudio-f32-to-dac14-vec" title="Permalink to this headline">¶</a></h2>
+<p>This function converts a single-precision floating point buffer to a 14-bit DAC buffer.
+The analog range spans [0v, 3v3] corresponding to range [-0.25,0.25].</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include ^xlaudio_arm_dsp.h^</span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_f32_to_dac14_vec</span><span class="p">(</span><span class="k">const</span> <span class="n">float32_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">sz</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlaudio-cycles">
+<span id="id32"></span><h2>xlaudio_cycles()<a class="headerlink" href="#xlaudio-cycles" title="Permalink to this headline">¶</a></h2>
+<p>This function provides a delay of N cycles of the CPU system clock (48 MHz).
+Due to the internal implementation details, the function shows a small constant overhead
+so that the effective delay of <code class="docutils literal notranslate"><span class="pre">xlaudio_cycles</span></code> is a few tens of cycles longer
+than the number provided in the function argument. This function is not recommend
+for delays shorter than 1000 cycles.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">xlaudio_cycles</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">cycles</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-1-loopback">
+<h2>Example 1: Loopback<a class="headerlink" href="#example-1-loopback" title="Permalink to this headline">¶</a></h2>
+<p>This program demonstrates a basic loopback application. This example will generate
+positive audio feedback when the microphone picks up the speaker noise.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+
+<span class="kt">uint16_t</span> <span class="nf">processSample</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">WDT_A_hold</span><span class="p">(</span><span class="n">WDT_A_BASE</span><span class="p">);</span>
+
+    <span class="n">xlaudio_init_intr</span><span class="p">(</span><span class="n">FS_32000_HZ</span><span class="p">,</span> <span class="n">XLAUDIO_MIC_IN</span><span class="p">,</span> <span class="n">processSample</span><span class="p">);</span>
+    <span class="n">xlaudio_run</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-2-first-order-lowpass">
+<h2>Example 2: First-Order Lowpass<a class="headerlink" href="#example-2-first-order-lowpass" title="Permalink to this headline">¶</a></h2>
+<p>This program implements the transfer function <img class="math" src="_images/math/9e70523a14c01e5ae78d8f9189700e382b16b3b0.png" alt="H(z) = \frac{0.1}{1 - 0.9 z^{-1}}"/>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="kt">uint16_t</span> <span class="nf">processSample</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="n">float32_t</span> <span class="n">tap</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">float32_t</span> <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">;</span>
+
+    <span class="n">sx</span>  <span class="o">=</span> <span class="n">xlaudio_adc14_to_f32</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="n">tap</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="n">tap</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">sx</span><span class="p">;</span>
+    <span class="n">sy</span>  <span class="o">=</span> <span class="n">tap</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">xlaudio_f32_to_dac14</span><span class="p">(</span><span class="n">sy</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">WDT_A_hold</span><span class="p">(</span><span class="n">WDT_A_BASE</span><span class="p">);</span>
+
+    <span class="n">xlaudio_init_intr</span><span class="p">(</span><span class="n">FS_16000_HZ</span><span class="p">,</span> <span class="n">XLAUDIO_MIC_IN</span><span class="p">,</span> <span class="n">processSample</span><span class="p">);</span>
+    <span class="n">xlaudio_run</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-3-voice-recorder">
+<h2>Example 3: Voice Recorder<a class="headerlink" href="#example-3-voice-recorder" title="Permalink to this headline">¶</a></h2>
+<p>This program presents a voice recorder/playback engine.
+Recording is controlled using the left button; playback is controlled
+using the right button.
+The buffer stores one second of sound when recorded at standard speed (16KHz sample rate).
+Only the upper byte of the 14 bit sample value are recorded and played back.
+The buffer can be played back at standard speed, at double speed, or in reverse.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;xlaudio.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;ti/devices/msp432p4xx/driverlib/driverlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;xlaudio_armdsp.h&quot;</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span><span class="n">IDLE</span><span class="p">,</span> <span class="n">RECORDING</span><span class="p">,</span> <span class="n">PLAYBACK_1</span><span class="p">,</span> <span class="n">PLAYBACK_2</span><span class="p">,</span> <span class="n">PLAYBACK_3</span><span class="p">}</span> <span class="n">audiostate_t</span><span class="p">;</span>
+
+<span class="cp">#define BUFSIZE 16384</span>
+
+<span class="kt">int8_t</span>    <span class="n">buffer</span><span class="p">[</span><span class="n">BUFSIZE</span><span class="p">];</span>
+<span class="kt">uint32_t</span>  <span class="n">bufindex</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">audiostate_t</span> <span class="n">pbmode</span> <span class="o">=</span> <span class="n">PLAYBACK_1</span><span class="p">;</span>
+
+<span class="n">audiostate_t</span> <span class="nf">next_state</span><span class="p">(</span><span class="n">audiostate_t</span> <span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">audiostate_t</span> <span class="n">next</span><span class="p">;</span>
+
+    <span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="p">;</span>    <span class="c1">// by default, maintain the state</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">current</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">IDLE</span><span class="p">:</span>
+        <span class="n">xlaudio_colorledoff</span><span class="p">();</span>
+        <span class="n">xlaudio_errorledoff</span><span class="p">();</span>
+        <span class="n">bufindex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">xlaudio_pushButtonLeftDown</span><span class="p">())</span>
+            <span class="n">next</span> <span class="o">=</span> <span class="n">RECORDING</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">xlaudio_pushButtonRightDown</span><span class="p">())</span>
+            <span class="n">next</span> <span class="o">=</span> <span class="n">pbmode</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="nl">RECORDING</span><span class="p">:</span>
+        <span class="n">xlaudio_errorledon</span><span class="p">();</span>
+        <span class="n">bufindex</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bufindex</span> <span class="o">==</span> <span class="n">BUFSIZE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">bufindex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">next</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="nl">PLAYBACK_1</span><span class="p">:</span>
+        <span class="n">xlaudio_colorledgreen</span><span class="p">();</span>
+        <span class="n">bufindex</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bufindex</span> <span class="o">==</span> <span class="n">BUFSIZE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">bufindex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">xlaudio_pushButtonRightUp</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">pbmode</span> <span class="o">=</span> <span class="n">PLAYBACK_2</span><span class="p">;</span>
+                <span class="n">next</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="nl">PLAYBACK_2</span><span class="p">:</span>
+        <span class="n">xlaudio_colorledblue</span><span class="p">();</span>
+        <span class="n">bufindex</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">bufindex</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bufindex</span> <span class="o">==</span> <span class="n">BUFSIZE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">bufindex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">xlaudio_pushButtonRightUp</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">pbmode</span> <span class="o">=</span> <span class="n">PLAYBACK_3</span><span class="p">;</span>
+                <span class="n">next</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="nl">PLAYBACK_3</span><span class="p">:</span>
+        <span class="n">xlaudio_colorledred</span><span class="p">();</span>
+        <span class="n">bufindex</span> <span class="o">=</span> <span class="p">(</span><span class="n">bufindex</span> <span class="o">+</span> <span class="n">BUFSIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFSIZE</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bufindex</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">xlaudio_pushButtonRightUp</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">pbmode</span> <span class="o">=</span> <span class="n">PLAYBACK_1</span><span class="p">;</span>
+                <span class="n">next</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">audiostate_t</span> <span class="n">glbAudioState</span> <span class="o">=</span> <span class="n">IDLE</span><span class="p">;</span>
+
+<span class="kt">uint16_t</span> <span class="nf">processSample</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="n">glbAudioState</span> <span class="o">=</span> <span class="n">next_state</span><span class="p">(</span><span class="n">glbAudioState</span><span class="p">);</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">glbAudioState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">RECORDING</span><span class="p">:</span>
+             <span class="n">buffer</span><span class="p">[</span><span class="n">bufindex</span><span class="p">]</span> <span class="o">=</span> <span class="n">xlaudio_adc14_to_q15</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">6</span><span class="p">;</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="n">xlaudio_q15_to_dac14</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">PLAYBACK_1</span><span class="p">:</span>
+    <span class="k">case</span> <span class="nl">PLAYBACK_2</span><span class="p">:</span>
+    <span class="k">case</span> <span class="nl">PLAYBACK_3</span><span class="p">:</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="n">xlaudio_q15_to_dac14</span><span class="p">(((</span><span class="kt">int16_t</span><span class="p">)</span> <span class="n">buffer</span><span class="p">[</span><span class="n">bufindex</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="n">xlaudio_q15_to_dac14</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">WDT_A_hold</span><span class="p">(</span><span class="n">WDT_A_BASE</span><span class="p">);</span>
+
+    <span class="n">xlaudio_init_intr</span><span class="p">(</span><span class="n">FS_16000_HZ</span><span class="p">,</span> <span class="n">XLAUDIO_MIC_IN</span><span class="p">,</span> <span class="n">processSample</span><span class="p">);</span>
+    <span class="n">xlaudio_run</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hardware.html" class="btn btn-neutral float-right" title="Hardware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="software.html" class="btn btn-neutral float-left" title="Software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Patrick Schaumont
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
