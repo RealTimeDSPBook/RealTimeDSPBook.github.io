@@ -1,0 +1,14 @@
+.. Real Time DSP Book 
+
+.. _software:
+
+Software
+========
+
+* :doc:`xlaudio_lib </xlaudio_lib>`
+
+.. toctree::
+ :maxdepth: 2
+ :hidden:
+
+ /xlaudio_lib
