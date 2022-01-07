@@ -1,6 +1,0 @@
-.. Real Time DSP Book 
-
-.. _hardware:
-
-Hardware
-========
