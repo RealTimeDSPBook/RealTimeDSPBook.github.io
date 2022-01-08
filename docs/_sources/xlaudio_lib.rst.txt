@@ -7,7 +7,7 @@ XLAUDIO Library
 
 XLAUDIO_LIB is a support library that offers support for flexible input/output in a real-time DSP application. The library was specifically designed for this course and can be `consulted on github <https://github.com/wpi-ece4703-b21/xlaudio_lib>`_.
 
-The following is a list of the public functions defined in this library.
+The following list is a list of the public functions defined in this library.
 
   +----------------------------------------------------------------------------------------------+
   | **System Initialization Functions**                                                          |
